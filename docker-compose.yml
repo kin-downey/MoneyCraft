@@ -1,0 +1,35 @@
+version: '3'
+services:
+  frontend:
+    tty: true
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    tty: true
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+  
+  db:
+    tty: true
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/db:/var/lib/mysql
+    env_file:
+      - .env
