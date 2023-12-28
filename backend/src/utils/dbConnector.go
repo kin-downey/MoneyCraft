@@ -3,6 +3,8 @@ package utils
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"fmt"
+	"reflect"
 )
 
 func ConnectToDB() *gorm.DB{
@@ -11,5 +13,6 @@ func ConnectToDB() *gorm.DB{
 	if err != nil {
 		panic("failed to connect database")
 	}
+	fmt.Println(reflect.TypeOf(db))
 	return db
 }
