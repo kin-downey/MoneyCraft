@@ -3,15 +3,19 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/y-watagashi/MoneyCraft/utils"
+	"github.com/y-watagashi/MoneyCraft/controllers"
 )
 
 func main() {
-	fmt.Println("Hello World")
+	db := utils.ConnectToDB()
+	fmt.Println(db)
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hello World",
+			"message": "Hello, World!",
 		})
 	})
-	r.Run("0.0.0.0:8000")
+	r.GET("/test", controllers.Test)
+	r.Run("0.0.0.0:8000") // listen and serve on
 }
