@@ -1,5 +1,6 @@
 # Money Craft
 お金に関する教育用のWebアプリケーションです
+![MoneyCraft_icon-removebg-preview](https://github.com/y-watagashi/MoneyCraft/assets/78391723/d030e1d9-d1bc-42c6-838a-fe3037181b4f)
 
 # 目次
 [概要](#概要)  
