@@ -1,17 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/y-watagashi/MoneyCraft/utils"
+	"github.com/y-watagashi/MoneyCraft/models"
+	"github.com/y-watagashi/MoneyCraft/controllers"
 )
 
 func main() {
-	fmt.Println("Hello World")
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World",
-		})
-	})
-	r.Run("0.0.0.0:8000")
+	db := utils.ConnectToDB()
+	db.AutoMigrate(&models.User{})
+
+	userHandler := controllers.UserHandler{Db: db}
+	r.POST("/user", userHandler.AddUser)
+	
+	r.Run("0.0.0.0:8000") // listen and serve on
 }
