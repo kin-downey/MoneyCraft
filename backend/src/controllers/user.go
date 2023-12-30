@@ -18,9 +18,19 @@ func (h *UserHandler) AddUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
 		return
 	}
-	err := h.Db.Create(&user).Error; if err != nil {
+	err = h.Db.Create(&user).Error; if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "ok"})
+	c.JSON(http.StatusOK, gin.H{"message": "ok", "user": user})
+}
+
+
+func (h *UserHandler) GetUser(c *gin.Context) {
+	var user models.User
+	err := h.Db.First(&user, c.Param("id")).Error; if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "ok", "user": user})
 }
