@@ -18,7 +18,7 @@ func (h *UserHandler) AddUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
 		return
 	}
-	err := h.Db.Create(&user).Error; if err != nil {
+	err = h.Db.Create(&user).Error; if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
 		return
 	}
