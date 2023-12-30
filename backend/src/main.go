@@ -10,7 +10,10 @@ import (
 func main() {
 	r := gin.Default()
 	db := utils.ConnectToDB()
-	db.AutoMigrate(&models.User{})
+	err := db.AutoMigrate(&models.User{}, &models.History{})
+	if err != nil {
+        log.Fatal("failed to migrate:", err)
+    }
 
 	userHandler := controllers.UserHandler{Db: db}
 	r.POST("/user", userHandler.AddUser)
