@@ -17,6 +17,7 @@ func main() {
 
 	userHandler := controllers.UserHandler{Db: db}
 	r.POST("/user", userHandler.AddUser)
+	r.GET("/user/:id", userHandler.GetUser)
 	
 	r.Run("0.0.0.0:8000") // listen and serve on
 }
