@@ -18,11 +18,15 @@ func main() {
     }
 
 	userHandler := controllers.UserHandler{Db: db}
-	// r.POST("/user", userHandler.AddUser)
-	users := r.Group("/user")
+	historyHandler := controllers.HistoryHandler{Db: db}
+
+	// User関連のエンドポイント
+	r.POST("/signup", userHandler.SignUp)
 	users.Use(middleware.AuthMiddleware)
 	users.GET("/:id", userHandler.GetUser)
-	r.POST("/signup", userHandler.SignUp)
+
+	// History関連のエンドポイント
+	r.POST("/history/:id", historyHandler.AddHistory)
 	
 	r.Run("0.0.0.0:8000") // listen and serve on
 }

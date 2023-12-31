@@ -9,8 +9,7 @@ type User struct {
 	Name string `json:"name" binding:"required"`
 	Email string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
-	IsParent bool `json:"is_parent"`
-	currency int 
+	IsParent bool `json:"isParent" binding:"required"`
+	Currency int `json:"currency" binding:"required"`
 	FamilyID uint
 }
-
