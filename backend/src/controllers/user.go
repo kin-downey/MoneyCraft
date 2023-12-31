@@ -28,6 +28,7 @@ func (h *UserHandler) SignUp(c *gin.Context) {
 		return
 	}
 	// ユーザーを作成
+	// TODO: ユーザー作成の際にパスワードをハッシュ化する
 	err = h.Db.Create(&user).Error; if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to create user"})
 		return
