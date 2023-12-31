@@ -36,6 +36,8 @@ func (h *UserHandler) SignUp(c *gin.Context) {
 }
 
 
+
+
 func (h *UserHandler) GetUser(c *gin.Context) {
 	var user models.User
 	err := h.Db.First(&user, c.Param("id")).Error; if err != nil {

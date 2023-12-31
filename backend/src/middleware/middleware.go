@@ -7,15 +7,15 @@ import (
 )
 
 func AuthMiddleware(c *gin.Context) {
-	tokenString, err := c.Request.Header.Get("Authorization")
-	if err != nil {
+	tokenString := c.Request.Header.Get("Authorization")
+	if tokenString == "" {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized",
+			"message": "No token provided",
 		})
 		c.Abort()
 		return
 	}
-	token, err := utils.ParseToken(tokenString)
+	_, err := utils.VerifyToken(tokenString)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"message": "Invalid token",
