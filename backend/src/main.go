@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/y-watagashi/MoneyCraft/utils"
 	"github.com/y-watagashi/MoneyCraft/models"
@@ -10,9 +11,9 @@ import (
 func main() {
 	r := gin.Default()
 	db := utils.ConnectToDB()
-	err := db.AutoMigrate(&models.User{}, &models.History{})
+	err := db.AutoMigrate(&models.Family{}, &models.Transaction{}, &models.User{}, &models.History{})
 	if err != nil {
-        log.Fatal("failed to migrate:", err)
+        fmt.Println("failed to migrate:", err)
     }
 
 	userHandler := controllers.UserHandler{Db: db}
