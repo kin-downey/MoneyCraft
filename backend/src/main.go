@@ -6,6 +6,7 @@ import (
 	"github.com/y-watagashi/MoneyCraft/utils"
 	"github.com/y-watagashi/MoneyCraft/models"
 	"github.com/y-watagashi/MoneyCraft/controllers"
+	"github.com/y-watagashi/MoneyCraft/middleware"
 )
 
 func main() {
@@ -20,8 +21,11 @@ func main() {
 	historyHandler := controllers.HistoryHandler{Db: db}
 
 	// User関連のエンドポイント
-	r.POST("/user", userHandler.AddUser)
-	r.GET("/user/:id", userHandler.GetUser)
+	r.POST("/signup", userHandler.SignUp)
+	r.POST("/signin", userHandler.SignIn)
+	users := r.Group("/user")
+	users.Use(middleware.AuthMiddleware)
+	users.GET("/:id", userHandler.GetUser)
 
 	// History関連のエンドポイント
 	r.POST("/history/:id", historyHandler.AddHistory)
