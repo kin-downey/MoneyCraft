@@ -37,6 +37,10 @@ func (h *UserHandler) SignUp(c *gin.Context) {
 	user.Password = string(hashedPassword)
 	// ユーザーをDBに保存
 	err = h.Db.Create(&user).Error; if err != nil {
+		if err.Error() == "Error 1062 (23000): Duplicate entry 'test@gmail.com' for key 'users.email'"{
+			c.JSON(http.StatusBadRequest, gin.H{"message": "Email is already used"})
+			return
+		}
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to create user"})
 		return
 	}
