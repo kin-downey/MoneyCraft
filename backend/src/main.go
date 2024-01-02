@@ -22,6 +22,7 @@ func main() {
 
 	// User関連のエンドポイント
 	r.POST("/signup", userHandler.SignUp)
+	r.POST("/signin", userHandler.SignIn)
 	users := r.Group("/user")
 	users.Use(middleware.AuthMiddleware)
 	users.GET("/:id", userHandler.GetUser)
