@@ -17,8 +17,14 @@ func main() {
     }
 
 	userHandler := controllers.UserHandler{Db: db}
+	historyHandler := controllers.HistoryHandler{Db: db}
+
+	// User関連のエンドポイント
 	r.POST("/user", userHandler.AddUser)
 	r.GET("/user/:id", userHandler.GetUser)
+
+	// History関連のエンドポイント
+	r.POST("/history/:id", historyHandler.AddHistory)
 	
 	r.Run("0.0.0.0:8000") // listen and serve on
 }
